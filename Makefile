@@ -15,8 +15,6 @@ INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
 # Compiler and linker settings
 
-CXX := clang++
-
 CPPFLAGS := $(INC_FLAGS) -MMD -MP
 CXXFLAGS := -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Werror
 
