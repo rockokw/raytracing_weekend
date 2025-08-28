@@ -1,5 +1,5 @@
 # Raytracing Weekend
-A basic path tracer based on Ray Tracing in One Weekend
+A basic path tracer based on [Ray Tracing in One Weekend](https://raytracing.github.io/)
 
 ```bash
 make run > hello.ppm
