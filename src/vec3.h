@@ -36,9 +36,9 @@ class Vec3 {
 
   Vec3 &operator/=(double t) { return *this *= 1 / t; }
 
-  double length() const { return std::sqrt(length_squared()); }
+  double Length() const { return std::sqrt(LengthSquared()); }
 
-  double length_squared() const {
+  double LengthSquared() const {
     return e_[0] * e_[0] + e_[1] * e_[1] + e_[2] * e_[2];
   }
 };
@@ -81,6 +81,6 @@ inline Vec3 Cross(const Vec3 &u, const Vec3 &v) {
               u.e_[0] * v.e_[1] - u.e_[1] * v.e_[0]);
 }
 
-inline Vec3 UnitVector(const Vec3 &u) { return u / u.length(); }
+inline Vec3 UnitVector(const Vec3 &u) { return u / u.Length(); }
 
 #endif

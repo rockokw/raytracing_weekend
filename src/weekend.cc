@@ -5,22 +5,22 @@
 
 using std::max;
 
-double hit_sphere(const Point3& center, double radius, const Ray& r) {
+double HitSphere(const Point3& center, double radius, const Ray& r) {
   Vec3 oc = center - r.origin();
-  auto a = Dot(r.direction(), r.direction());
-  auto b = -2.0 * Dot(r.direction(), oc);
-  auto c = Dot(oc, oc) - radius * radius;
-  auto discriminant = (b * b) - (4 * a * c);
+  auto a = r.direction().LengthSquared();
+  auto h = Dot(r.direction(), oc);
+  auto c = oc.LengthSquared() - radius * radius;
+  auto discriminant = (h * h) - (a * c);
 
   if (discriminant < 0) {
     return -1.0;
   } else {
-    return (-b - std::sqrt(discriminant)) / (2.0 * a);
+    return (h - std::sqrt(discriminant)) / a;
   }
 }
 
 Color RayColor(const Ray& r) {
-  auto t = hit_sphere(Point3(0, 0, -1), 0.5, r);
+  auto t = HitSphere(Point3(0, 0, -1), 0.5, r);
   if (t > 0.0) {
     Vec3 n = UnitVector(r.At(t) - Vec3(0, 0, -1));
     return 0.5 * Color(n.x() + 1, n.y() + 1, n.z() + 1);
