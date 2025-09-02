@@ -1,7 +1,7 @@
 # Raytracing Weekend
 A basic path tracer based on the [Ray Tracing in One Weekend](https://raytracing.github.io/) book.
 
-![Initial image](./images/hello.png)
+![Initial image](./images/00_hello.png)
 
 
 ## About
