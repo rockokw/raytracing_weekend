@@ -1,29 +1,14 @@
-#include <iostream>
-
-#include "color.h"
-#include "ray.h"
+#include "hittable.h"
+#include "hittable_list.h"
+#include "rtweekend.h"
+#include "sphere.h"
 
 using std::max;
 
-double HitSphere(const Point3& center, double radius, const Ray& r) {
-  Vec3 oc = center - r.origin();
-  auto a = r.direction().LengthSquared();
-  auto h = Dot(r.direction(), oc);
-  auto c = oc.LengthSquared() - radius * radius;
-  auto discriminant = (h * h) - (a * c);
-
-  if (discriminant < 0) {
-    return -1.0;
-  } else {
-    return (h - std::sqrt(discriminant)) / a;
-  }
-}
-
-Color RayColor(const Ray& r) {
-  auto t = HitSphere(Point3(0, 0, -1), 0.5, r);
-  if (t > 0.0) {
-    Vec3 n = UnitVector(r.At(t) - Vec3(0, 0, -1));
-    return 0.5 * Color(n.x() + 1, n.y() + 1, n.z() + 1);
+Color RayColor(const Ray& r, const Hittable& world) {
+  HitRecord rec;
+  if (world.Hit(r, 0, infinity, rec)) {
+    return 0.5 * (rec.normal + Color(1, 1, 1));
   }
 
   Vec3 unit_direction = UnitVector(r.direction());
@@ -41,6 +26,11 @@ int main() {
 
   // Determine image height based on aspect ratio, with a min of 1.
   int image_height = max(1, static_cast<int>(image_width / aspect_ratio));
+
+  /* World */
+  HittableList world;
+  world.Add(make_shared<Sphere>(Point3(0, 0, -1), 0.5));
+  world.Add(make_shared<Sphere>(Point3(0, -100.5, -1), 100));
 
   /* Camera */
   auto focal_length = 1.0;
@@ -73,7 +63,7 @@ int main() {
       auto ray_direction = pixel_center - camera_center;
       Ray r(camera_center, ray_direction);
 
-      Color pixel_color = RayColor(r);
+      Color pixel_color = RayColor(r, world);
       WriteColor(std::cout, pixel_color);
     }
   }
