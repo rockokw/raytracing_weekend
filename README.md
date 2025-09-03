@@ -20,7 +20,7 @@ Compared to the guide, I made some modifications to accommodate personal goals a
 #### Execution
 
 ```bash
-make run > hello.ppm
+make && make run > hello.ppm
 ```
 
 The [PPM](https://en.wikipedia.org/wiki/Netpbm) (portable pixmap format) file can be opened in common image viewers.
