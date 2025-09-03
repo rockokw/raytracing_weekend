@@ -18,14 +18,13 @@ class HittableList : public Hittable {
 
   void Add(shared_ptr<Hittable> object) { objects_.push_back(object); }
 
-  bool Hit(const Ray& r, double ray_tmin, double ray_tmax,
-           HitRecord& rec) const override {
+  bool Hit(const Ray& r, Interval ray_t, HitRecord& rec) const override {
     HitRecord temp_rec;
     bool hit_anything = false;
-    auto closest_so_far = ray_tmax;
+    auto closest_so_far = ray_t.max;
 
     for (const auto& object : objects_) {
-      if (object->Hit(r, ray_tmin, closest_so_far, temp_rec)) {
+      if (object->Hit(r, Interval(ray_t.min, closest_so_far), temp_rec)) {
         hit_anything = true;
         closest_so_far = temp_rec.t;
         rec = temp_rec;
