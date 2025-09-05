@@ -18,6 +18,12 @@ struct Interval {
 
   bool Surrounds(double x) const { return min < x and x < max; }
 
+  double Clamp(double x) const {
+    if (x < min) return min;
+    if (x > max) return max;
+    return x;
+  }
+
   static const Interval kEmpty;
 
   static const Interval kUniverse;
