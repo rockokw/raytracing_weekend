@@ -9,7 +9,6 @@ SRCS := $(shell find $(SRC_DIRS) -name '*.cc')
 OBJS := $(SRCS:%.cc=$(BUILD_DIR)/%.o)
 
 DEPS := $(OBJS:.o=.d)
-
 INC_DIRS := $(shell find $(SRC_DIRS) -type d)
 INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
@@ -23,7 +22,6 @@ CXXFLAGS := -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Werror
 LDLIBS :=
 
 # Target rules
-
 $(TARGET_EXEC):	$(OBJS)
 	mkdir -p $(dir $@)
 	$(CXX) $(LDFLAGS) $^ $(LDLIBS) -o $@
@@ -51,3 +49,5 @@ print-includes: $(INC_DIRS)
 .PHONY: clean
 clean:
 	rm -rf $(TARGET_EXEC) $(BUILD_DIR)
+
+-include $(DEPS)
