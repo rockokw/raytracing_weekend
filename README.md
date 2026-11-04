@@ -30,8 +30,23 @@ The [PPM](https://en.wikipedia.org/wiki/Netpbm) (portable pixmap format) file ca
 Here are some of the images produced while developing this path tracer.
 
 
+<!-- |  |  |
+|:--:|:--:|
+![First rays](./images/01_first_rays.png) First rays | ![Hit sphere](./images/02_hit_sphere.png) Hitting a sphere
+![Sphere normals](./images/03_sphere_normals.png) Sphere normals | ![Two spheres](./images/04_two_spheres.png) Two spheres
+![Anti-aliasing](./images/05_antialiasing.png) Anti-aliasing | ![Diffuse materials](./images/06_diffuse_materials.png) Diffuse materials -->
+
 |  |  |
-|--|--|
+|:--:|:--:|
 ![First rays](./images/01_first_rays.png) | ![Hit sphere](./images/02_hit_sphere.png)
+First rays | Hitting a sphere
+
+|  |  |
+|:--:|:--:|
 ![Sphere normals](./images/03_sphere_normals.png) | ![Two spheres](./images/04_two_spheres.png)
+Sphere normals | Two spheres
+
+|  |  |
+|:--:|:--:|
 ![Anti-aliasing](./images/05_antialiasing.png) | ![Diffuse materials](./images/06_diffuse_materials.png)
+Anti-aliasing | Diffuse materials
