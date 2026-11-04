@@ -40,6 +40,15 @@ class Vec3 {
   double LengthSquared() const {
     return e_[0] * e_[0] + e_[1] * e_[1] + e_[2] * e_[2];
   }
+
+  static Vec3 Random() {
+    return Vec3(random_double(), random_double(), random_double());
+  }
+
+  static Vec3 Random(double min, double max) {
+    return Vec3(random_double(min, max), random_double(min, max),
+                random_double(min, max));
+  }
 };
 
 using Point3 = Vec3;
@@ -81,5 +90,26 @@ inline Vec3 Cross(const Vec3 &u, const Vec3 &v) {
 }
 
 inline Vec3 UnitVector(const Vec3 &u) { return u / u.Length(); }
+
+inline Vec3 RandomUnitVector() {
+  // Generate a unit vector using rejection sampling.
+  while (true) {
+    Vec3 p = Vec3::Random(-1, 1);
+    double len_sq = p.LengthSquared();
+    if (1e-160 < len_sq && len_sq <= 1) {
+      return p / sqrt(len_sq);
+    }
+  }
+}
+
+inline Vec3 RandomOnHemisphere(const Vec3 &normal) {
+  Vec3 on_unit_sphere = RandomUnitVector();
+  if (Dot(on_unit_sphere, normal) > 0.0) {
+    // In the same hemisphere as the normal.
+    return on_unit_sphere;
+  } else {
+    return -on_unit_sphere;
+  }
+}
 
 #endif

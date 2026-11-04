@@ -34,4 +34,4 @@ Here are some of the images produced while developing this path tracer.
 |--|--|
 ![First rays](./images/01_first_rays.png) | ![Hit sphere](./images/02_hit_sphere.png)
 ![Sphere normals](./images/03_sphere_normals.png) | ![Two spheres](./images/04_two_spheres.png)
-![Anti-aliasing](./images/05_antialiasing.png) |
+![Anti-aliasing](./images/05_antialiasing.png) | ![Diffuse materials](./images/06_diffuse_materials.png)

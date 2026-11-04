@@ -6,10 +6,22 @@
 
 using Color = Vec3;
 
+inline double LinearToGamma(double linear_component) {
+  if (linear_component > 0) {
+    return std::sqrt(linear_component);
+  }
+  return 0;
+}
+
 void WriteColor(std::ostream &out, const Color &pixel_color) {
   auto r = pixel_color.x();
   auto g = pixel_color.y();
   auto b = pixel_color.z();
+
+  // Transform from linear to gamma space
+  r = LinearToGamma(r);
+  g = LinearToGamma(g);
+  b = LinearToGamma(b);
 
   // Scale [0, 1] component values to the byte range [0, 255]
   static const Interval intensity(0.000, 0.999);
