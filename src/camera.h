@@ -2,6 +2,7 @@
 #define CAMERA_H
 
 #include "hittable.h"
+#include "material.h"
 
 using std::max;
 
@@ -102,8 +103,12 @@ class Camera {
 
     HitRecord rec;
     if (world.Hit(r, Interval(0.001, infinity), rec)) {
-      Vec3 direction = rec.normal + RandomUnitVector();
-      return 0.1 * RayColor(Ray(rec.p, direction), depth - 1, world);
+      Ray scattered;
+      Color attenuation;
+      if (rec.mat->Scatter(r, rec, attenuation, scattered)) {
+        return attenuation * RayColor(scattered, depth - 1, world);
+      }
+      return Color(0, 0, 0);
     }
 
     Vec3 unit_direction = UnitVector(r.direction());

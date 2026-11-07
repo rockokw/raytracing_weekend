@@ -5,31 +5,31 @@
 
 class Vec3 {
  public:
-  double e_[3];
+  double e[3];
 
-  Vec3() : e_{0, 0, 0} {}
+  Vec3() : e{0, 0, 0} {}
 
-  Vec3(double e0, double e1, double e2) : e_{e0, e1, e2} {}
+  Vec3(double e0, double e1, double e2) : e{e0, e1, e2} {}
 
-  double x() const { return e_[0]; }
-  double y() const { return e_[1]; }
-  double z() const { return e_[2]; }
+  double x() const { return e[0]; }
+  double y() const { return e[1]; }
+  double z() const { return e[2]; }
 
-  Vec3 operator-() const { return Vec3{-e_[0], -e_[1], -e_[2]}; }
-  double operator[](int i) const { return e_[i]; }
-  double &operator[](int i) { return e_[i]; }
+  Vec3 operator-() const { return Vec3{-e[0], -e[1], -e[2]}; }
+  double operator[](int i) const { return e[i]; }
+  double &operator[](int i) { return e[i]; }
 
   Vec3 &operator+=(const Vec3 &v) {
-    e_[0] += v.e_[0];
-    e_[1] += v.e_[1];
-    e_[2] += v.e_[2];
+    e[0] += v.e[0];
+    e[1] += v.e[1];
+    e[2] += v.e[2];
     return *this;
   }
 
   Vec3 &operator*=(double t) {
-    e_[0] *= t;
-    e_[1] *= t;
-    e_[2] *= t;
+    e[0] *= t;
+    e[1] *= t;
+    e[2] *= t;
     return *this;
   }
 
@@ -38,7 +38,14 @@ class Vec3 {
   double Length() const { return std::sqrt(LengthSquared()); }
 
   double LengthSquared() const {
-    return e_[0] * e_[0] + e_[1] * e_[1] + e_[2] * e_[2];
+    return e[0] * e[0] + e[1] * e[1] + e[2] * e[2];
+  }
+
+  bool NearZero() const {
+    // Returns true if the vector is close to zero in all dimensions.
+    double s = 1e-8;
+    return (std::fabs(e[0]) < s) && (std::fabs(e[1]) < s) &&
+           (std::fabs(e[2]) < s);
   }
 
   static Vec3 Random() {
@@ -56,23 +63,23 @@ using Point3 = Vec3;
 /* Vector Utility Functions */
 
 inline std::ostream &operator<<(std::ostream &out, const Vec3 &v) {
-  return out << v.e_[0] << ' ' << v.e_[1] << ' ' << v.e_[2];
+  return out << v.e[0] << ' ' << v.e[1] << ' ' << v.e[2];
 }
 
 inline Vec3 operator+(const Vec3 &u, const Vec3 &v) {
-  return Vec3(u.e_[0] + v.e_[0], u.e_[1] + v.e_[1], u.e_[2] + v.e_[2]);
+  return Vec3(u.e[0] + v.e[0], u.e[1] + v.e[1], u.e[2] + v.e[2]);
 }
 
 inline Vec3 operator-(const Vec3 &u, const Vec3 &v) {
-  return Vec3(u.e_[0] - v.e_[0], u.e_[1] - v.e_[1], u.e_[2] - v.e_[2]);
+  return Vec3(u.e[0] - v.e[0], u.e[1] - v.e[1], u.e[2] - v.e[2]);
 }
 
 inline Vec3 operator*(const Vec3 &u, const Vec3 &v) {
-  return Vec3(u.e_[0] * v.e_[0], u.e_[1] * v.e_[1], u.e_[2] * v.e_[2]);
+  return Vec3(u.e[0] * v.e[0], u.e[1] * v.e[1], u.e[2] * v.e[2]);
 }
 
 inline Vec3 operator*(double t, const Vec3 &u) {
-  return Vec3(t * u.e_[0], t * u.e_[1], t * u.e_[2]);
+  return Vec3(t * u.e[0], t * u.e[1], t * u.e[2]);
 }
 
 inline Vec3 operator*(const Vec3 &u, double t) { return t * u; }
@@ -80,13 +87,13 @@ inline Vec3 operator*(const Vec3 &u, double t) { return t * u; }
 inline Vec3 operator/(const Vec3 &u, double t) { return (1 / t) * u; }
 
 inline double Dot(const Vec3 &u, const Vec3 &v) {
-  return u.e_[0] * v.e_[0] + u.e_[1] * v.e_[1] + u.e_[2] * v.e_[2];
+  return u.e[0] * v.e[0] + u.e[1] * v.e[1] + u.e[2] * v.e[2];
 }
 
 inline Vec3 Cross(const Vec3 &u, const Vec3 &v) {
-  return Vec3(u.e_[1] * v.e_[2] - u.e_[2] * v.e_[1],
-              u.e_[2] * v.e_[0] - u.e_[0] * v.e_[2],
-              u.e_[0] * v.e_[1] - u.e_[1] * v.e_[0]);
+  return Vec3(u.e[1] * v.e[2] - u.e[2] * v.e[1],
+              u.e[2] * v.e[0] - u.e[0] * v.e[2],
+              u.e[0] * v.e[1] - u.e[1] * v.e[0]);
 }
 
 inline Vec3 UnitVector(const Vec3 &u) { return u / u.Length(); }
@@ -110,6 +117,10 @@ inline Vec3 RandomOnHemisphere(const Vec3 &normal) {
   } else {
     return -on_unit_sphere;
   }
+}
+
+inline Vec3 Reflect(const Vec3 &v, const Vec3 &n) {
+  return v - 2 * Dot(v, n) * n;
 }
 
 #endif

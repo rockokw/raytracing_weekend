@@ -50,3 +50,8 @@ Sphere normals | Two spheres
 |:--:|:--:|
 ![Anti-aliasing](./images/05_antialiasing.png) | ![Diffuse materials](./images/06_diffuse_materials.png)
 Anti-aliasing | Diffuse materials
+
+|  |  |
+|:--:|:--:|
+![Shiny metal](./images/07a_shiny_metal.png) | ![Fuzzy metal](./images/07b_fuzzy_metal.png)
+Shiny metal | Fuzzy metal
